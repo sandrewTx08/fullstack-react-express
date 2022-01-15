@@ -5,11 +5,27 @@ const router = require('express').Router()
 
 
 router.post('/', body, async (req, res) => {
-    let query = await Login.findOne({
+    let queryByUsername = await Login.findOne({
         username: req.body.username
     }).exec()
-    
-    if (!query) {
+
+    if (queryByUsername) {
+        res.status(409).json({
+            error: `Username is already in use.`
+        })
+    }
+
+    let queryByEmail = await Login.findOne({
+        email: req.body.email
+    }).exec()
+
+    if (queryByEmail) {
+        res.status(409).json({
+            error: `Email is already in use.`
+        })
+    }
+
+    if (!queryByUsername && !queryByEmail) {
         await bcrypt.hash(req.body.password, Number(process.env.HASH_SALT))
             .then(async hash => {
                 await Login.create({
@@ -22,11 +38,6 @@ router.post('/', body, async (req, res) => {
                     message: `Username ${req.body.username} created with success!`
                 })
             })
-
-    } else {
-        res.status(409).json({
-            error: `Username ${req.body.username} already exists.`
-        })
     }
 })
 
