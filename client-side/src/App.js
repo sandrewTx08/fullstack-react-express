@@ -3,7 +3,7 @@ import SignIn from './components/SignIn'
 import Navbar from './components/Navbar'
 import Cookies from 'universal-cookie'
 import React, { Component } from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
 import axios from 'axios'
 const HOST = 'http://localhost:3001'
 
@@ -53,11 +53,11 @@ class App extends Component {
                     </SignIn>
                 </div>}>
                 </Route>
-
                 <Route path='/' element={<div>
-                    {this.state.auth
-                        ? <h1>Dashboard</h1>
-                        : <img src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
+                    {this.state.auth === undefined ? <img src={process.env.PUBLIC_URL + "/loading.gif"}></img>
+                        : this.state.auth === false ? <Navigate to="/login" />
+                            : this.state.auth === true ? <h1>Dashboard</h1>
+                                : undefined}
                 </div>}>
                 </Route>
             </Routes>

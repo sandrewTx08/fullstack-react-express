@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Component } from "react"
+import { Navigate } from "react-router-dom"
 import Cookies from 'universal-cookie'
 const HOST = 'http://localhost:3001'
 
@@ -36,22 +37,16 @@ class Login extends Component {
 
     render() {
         return (<form onSubmit={this.handleSubmit.bind(this)}>
-
             <div className="border border-secondary rounded border-1 card">
                 <div className="text-center card-header">
                     <h2>Login</h2>
                 </div>
                 <div className="p-3">
-                    {this.state.alertMessage
-                        ? <div
-                            className="alert alert-success"
-                            role="alert">{this.state.alertMessage}</div>
-                        : this.state.alertError
-                            ? <div
-                                className="alert alert-danger"
-                                role="alert">{this.state.alertError}</div>
-                            : undefined
-                    }
+                    {this.state.alertMessage ? <Navigate to='/' />
+                        : this.state.alertError ? <div
+                            className="alert alert-danger"
+                            role="alert">{this.state.alertError}</div>
+                            : undefined}
 
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
