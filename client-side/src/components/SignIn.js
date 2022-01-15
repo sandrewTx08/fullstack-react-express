@@ -21,8 +21,8 @@ class SignIn extends Component {
                 password
             },
 
-        }).catch(request => {
-            let alertError = request.response.data.error
+        }).catch(failed => {
+            let alertError = failed.response.data.error
             this.setState({ alertError })
 
         }).then(response => {
