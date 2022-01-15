@@ -20,7 +20,7 @@ class Navbar extends Component {
                             Login
                         </Link>
                         <Link to='/signin' className='nav-link'>
-                            Sign-in
+                            Sign-In
                         </Link>
                     </div>
                 </div>

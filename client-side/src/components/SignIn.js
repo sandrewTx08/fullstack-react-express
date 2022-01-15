@@ -36,7 +36,7 @@ class SignIn extends Component {
 
             <div className="border border-secondary rounded border-1 card">
                 <div className="text-center card-header">
-                    <h2>Sign-in</h2>
+                    <h2>Sign-In</h2>
                 </div>
                 <div className="p-3">
                     {this.state.alertMessage
@@ -95,7 +95,7 @@ class SignIn extends Component {
                     </div>
 
                     <div className='d-flex justify-content-center'>
-                        <button className="btn btn-primary" type='submit'>Login</button>
+                        <button className="btn btn-primary" type='submit'>Sign-In</button>
                     </div>
 
                     <div className='container pt-4'>
