@@ -10,21 +10,17 @@ router.post('/', body, async (req, res) => {
     let query = await Login.findOne({
         username: { $in: req.body.username },
     }).exec()
-    
+
     if (query) {
         await bcrypt.compare(req.body.password, query.password)
-            .then(bool => {
-                if (bool) {
-                    res.status(201).json({
-                        message: `Welcome ${req.body.username}!`,
-                        token: jwt.sign({query}, process.env.JWT_SECRET)
-                    })
+            .then(pass => {
+                pass ? res.status(201).json({
+                    message: `Welcome ${req.body.username}!`,
+                    token: jwt.sign({ query }, process.env.JWT_SECRET)
 
-                } else {
-                    res.status(401).json({
-                        error: 'Bad credentials.'
-                    })
-                }
+                }) : res.status(401).json({
+                    error: 'Bad credentials.'
+                })
             })
 
     } else {
