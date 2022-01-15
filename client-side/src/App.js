@@ -26,6 +26,10 @@ class App extends Component {
                 token: this.state.cookie.get('token')
             },
 
+        }).catch(failed => {
+            let auth = failed.response.data.pass ? true : false
+            this.setState({ auth })
+
         }).then(response => {
             let auth = response.data.pass ? true : false
             this.setState({ auth })
