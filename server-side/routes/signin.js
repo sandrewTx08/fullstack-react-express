@@ -11,7 +11,7 @@ router.post('/', body, async (req, res) => {
 
     if (queryByUsername) {
         res.status(409).json({
-            error: `Username is already in use.`
+            error: 'Username is already in use.'
         })
     }
 
@@ -21,7 +21,7 @@ router.post('/', body, async (req, res) => {
 
     if (queryByEmail) {
         res.status(409).json({
-            error: `Email is already in use.`
+            error: 'Email is already in use.'
         })
     }
 
@@ -35,7 +35,7 @@ router.post('/', body, async (req, res) => {
                 })
                 // OK
                 res.status(201).json({
-                    message: `Username ${req.body.username} created with success!`
+                    message: `User ${req.body.username} created with success!`
                 })
             })
     }
