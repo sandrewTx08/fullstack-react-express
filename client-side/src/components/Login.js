@@ -24,13 +24,13 @@ class Login extends Component {
             },
 
         }).catch(request => {
-            let alert = request.response.data.error
-            this.setState({ alert })
+            let alertError = request.response.data.error
+            this.setState({ alertError })
 
-        }).then((response) => {
-            let alert = response.data.message
+        }).then(response => {
             this.state.cookie.set('token', response.data.token, { path: '/' })
-            this.setState({ alert })
+            let alertMessage = response.data.message
+            this.setState({ alertMessage })
         })
     }
 
@@ -42,9 +42,15 @@ class Login extends Component {
                     <h2>Login</h2>
                 </div>
                 <div className="p-3">
-                    {this.state.alert
-                        ? <div className="alert alert-warning" role="alert">{this.state.alert}</div>
-                        : undefined
+                    {this.state.alertMessage
+                        ? <div
+                            className="alert alert-success"
+                            role="alert">{this.state.alertMessage}</div>
+                        : this.state.alertError
+                            ? <div
+                                className="alert alert-danger"
+                                role="alert">{this.state.alertError}</div>
+                            : undefined
                     }
 
                     <div className="input-group mb-3">
