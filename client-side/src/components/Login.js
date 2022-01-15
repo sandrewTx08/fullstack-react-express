@@ -37,21 +37,21 @@ class Login extends Component {
     render() {
         return (<form onSubmit={this.handleSubmit.bind(this)}>
 
-            <div className="card border border-dark rounded">
-                <div className="card-header text-center">
+            <div className="border border-secondary rounded border-1 card">
+                <div className="text-center card-header">
                     <h2>Login</h2>
                 </div>
-
-                <div className="card-body">
+                <div className="p-3">
                     {this.state.alert
                         ? <div className="alert alert-warning" role="alert">{this.state.alert}</div>
                         : undefined
                     }
 
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="inputGroup-sizing-default">Username</span>
+                        <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
                         <input
                             onChange={e => this.setState({ username: e.target.value })}
+                            placeholder="Username"
                             type="text"
                             className="form-control"
                             aria-label="Sizing example input"
@@ -59,9 +59,10 @@ class Login extends Component {
                     </div>
 
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="inputGroup-sizing-default">Password</span>
+                        <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
                         <input
                             onChange={e => this.setState({ password: e.target.value })}
+                            placeholder="Password"
                             type="password"
                             className="form-control"
                             aria-label="Sizing example input"
@@ -72,7 +73,7 @@ class Login extends Component {
                         <button className="btn btn-primary" type='submit'>Login</button>
                     </div>
 
-                    <div className='container'>
+                    <div className='container pt-4'>
                         {this.props.children}
                     </div>
 

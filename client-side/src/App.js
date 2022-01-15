@@ -36,7 +36,7 @@ class App extends Component {
             <Routes>
                 <Route path='login' element={<div className='d-flex justify-content-center'>
                     <Login>
-                        <Link to='/signin' className='link-primary'>
+                        <Link to='/signin' className='text-decoration-none'>
                             Don't have an account yet?
                         </Link>
                     </Login>

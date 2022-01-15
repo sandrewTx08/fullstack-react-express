@@ -34,43 +34,56 @@ class SignIn extends Component {
     render() {
         return (<form onSubmit={this.handleSubmit.bind(this)}>
 
-            <div class="card border border-dark rounded">
-                <div class="card-header text-center">
+            <div className="border border-secondary rounded border-1 card">
+                <div className="text-center card-header">
                     <h2>Sign-in</h2>
                 </div>
-
-                <div class="card-body">
+                <div className="p-3">
                     {this.state.alert
                         ? <div className="alert alert-warning" role="alert">{this.state.alert}</div>
                         : undefined
                     }
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="inputGroup-sizing-default">✉️</span>
                         <input
                             onChange={e => this.setState({ email: e.target.value })}
+                            placeholder="Email"
                             type="email"
-                            class="form-control"
+                            className="form-control"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default"></input>
                     </div>
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
                         <input
                             onChange={e => this.setState({ username: e.target.value })}
+                            placeholder="Username"
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default"></input>
                     </div>
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
                         <input
                             onChange={e => this.setState({ password: e.target.value })}
+                            placeholder="Password"
                             type="password"
-                            class="form-control"
+                            className="form-control"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default"></input>
+                    </div>
+
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
+                        <input
+                            onChange={e => this.setState({ passwordConfirm: e.target.value })}
+                            placeholder="Confirm password"
+                            type="password"
+                            className="form-control"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default"></input>
                     </div>
@@ -79,7 +92,7 @@ class SignIn extends Component {
                         <button className="btn btn-primary" type='submit'>Login</button>
                     </div>
 
-                    <div class='container'>
+                    <div className='container pt-4'>
                         {this.props.children}
                     </div>
 
