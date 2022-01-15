@@ -1,5 +1,6 @@
 import Login from './components/Login'
 import SignIn from './components/SignIn'
+import Navbar from './components/Navbar'
 import Cookies from 'universal-cookie'
 import React, { Component } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
@@ -33,6 +34,7 @@ class App extends Component {
 
     render() {
         return (<BrowserRouter>
+            <Navbar />
             <Routes>
                 <Route path='login' element={<div className='d-flex justify-content-center'>
                     <Login>
@@ -55,7 +57,7 @@ class App extends Component {
                 <Route path='/' element={<div>
                     {this.state.auth
                         ? <h1>Dashboard</h1>
-                        : <img src={process.env.PUBLIC_URL+"/loading.gif"}></img>}
+                        : <img src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
                 </div>}>
                 </Route>
             </Routes>
