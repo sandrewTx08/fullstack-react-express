@@ -5,6 +5,56 @@ const router = require('express').Router()
 
 
 router.post('/', body, async (req, res) => {
+    
+    // Check
+    if (!req.body.email) {
+        return res.status(400).json({
+            error: 'Email is empty.'
+        })
+    
+    } else if (!req.body.username && !req.body.password) {
+        return res.status(400).json({
+            error: 'Username and password are empty.'
+        })
+    
+    } else if (!req.body.username) {
+        return res.status(400).json({
+            error: 'Username is empty.'
+        })
+    
+    } else if (!req.body.password) {
+        return res.status(400).json({
+            error: 'Password is empty.'
+        })
+    
+    } else if (req.body.password != req.body.passwordConfirm) {
+        return res.status(400).json({
+            error: "Can't confirm password."
+        })
+    }
+
+    // Check
+    if (req.body.email.includes(' ')) {
+        return res.status(400).json({
+            error: 'Email should not have space.'
+        })
+
+    } else if (req.body.username.includes(' ') && req.body.password.includes(' ')) {
+        return res.status(400).json({
+            error: 'Username and password should not have space.'
+        })
+
+    } else if (req.body.username.includes(' ')) {
+        return res.status(400).json({
+            error: 'Username should not have space.'
+        })
+
+    } else if (req.body.password.includes(' ')) {
+        return res.status(400).json({
+            error: 'Password should not have space.'
+        })
+    }
+
     let queryByUsername = await Login.findOne({
         username: req.body.username
     }).exec()
@@ -23,11 +73,6 @@ router.post('/', body, async (req, res) => {
             error: 'Username is already in use.'
         })
 
-    } else if (req.body.password != req.body.passwordConfirm) {
-        return res.status(400).json({
-            error: "Can't confirm password."
-        })
-
     } else if (!queryByUsername && !queryByEmail) {
         await bcrypt.hash(req.body.password, Number(process.env.HASH_SALT))
             .then(async hash => {
@@ -40,10 +85,10 @@ router.post('/', body, async (req, res) => {
                 res.status(201).json({
                     message: `User ${req.body.username} created with success!`
                 })
-
             })
     }
 })
+
 
 module.exports = router
 
