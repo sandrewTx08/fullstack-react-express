@@ -5,7 +5,7 @@ import Form from './Form'
 const HOST = 'http://localhost:3001'
 
 
-class SignIn extends Component {
+class SignUp extends Component {
     constructor() {
         super()
         this.state = {}
@@ -16,7 +16,7 @@ class SignIn extends Component {
         this.setState({ loadingQuery: true })
         let { username, password, email, passwordConfirm } = this.state
         axios({
-            url: HOST + '/api/signin',
+            url: HOST + '/api/signup',
             method: 'post',
             data: {
                 email,
@@ -45,8 +45,8 @@ class SignIn extends Component {
 
     render() {
         return <Form
-            buttonName='Sign-In'
-            headerName='Sign-In'
+            buttonName='Sign-Up'
+            headerName='Sign-Up'
             submit={this.handleSubmit.bind(this)}
             alertBox={!this.state.loadingQuery
                 ? this.state.alertError
@@ -110,5 +110,5 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn
+export default SignUp
 

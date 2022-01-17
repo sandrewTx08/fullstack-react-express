@@ -61,7 +61,7 @@ class Login extends Component {
                             ? <div className="alert alert-success" role="alert">{this.state.alertMessage}</div>
                             : undefined
                     : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
-                footer={<Link to='/signin' className='text-decoration-none'>
+                footer={<Link to='/signup' className='text-decoration-none'>
                     Don't have an account yet?
                 </Link>}
                 inputs={<div>

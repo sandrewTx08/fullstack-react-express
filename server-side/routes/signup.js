@@ -27,7 +27,7 @@ router.post('/', body, async (req, res) => {
         return res.status(400).json({
             error: "Can't confirm password."
         })
-    
+
     } else if (!queryByUsername && !queryByEmail) {
         await bcrypt.hash(req.body.password, Number(process.env.HASH_SALT))
             .then(async hash => {

@@ -1,5 +1,5 @@
 import Login from './components/Login'
-import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 import Navbar from './components/Navbar'
 import Cookies from 'universal-cookie'
 import { Component } from 'react'
@@ -43,8 +43,8 @@ class App extends Component {
                     <Login />
                 </div>}>
                 </Route>
-                <Route path='signin' element={<div className='d-flex justify-content-center'>
-                    <SignIn />
+                <Route path='signup' element={<div className='d-flex justify-content-center'>
+                    <SignUp />
                 </div>}>
                 </Route>
                 <Route path='/' element={<div>
