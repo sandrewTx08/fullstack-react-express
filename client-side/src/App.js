@@ -3,7 +3,7 @@ import SignUp from './components/SignUp'
 import Navbar from './components/Navbar'
 import Cookies from 'universal-cookie'
 import { Component } from 'react'
-import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import axios from 'axios'
 const HOST = 'http://localhost:3001'
 
