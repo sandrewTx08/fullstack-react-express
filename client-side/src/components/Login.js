@@ -26,17 +26,20 @@ class Login extends Component {
             },
 
         }).catch(failed => {
-            this.setState({ loadingQuery: false })
-
             let alertError = failed.response.data.error
             this.setState({ alertError })
+            this.setState({ alertMessage: false })
+            return failed
 
         }).then(response => {
             this.setState({ loadingQuery: false })
+            return response
 
-            this.state.cookie.set('token', response.data.token, { path: '/' })
+        }).then(response => {
             let alertMessage = response.data.message
             this.setState({ alertMessage })
+            this.setState({ alertError: false })
+            return response
         })
     }
 

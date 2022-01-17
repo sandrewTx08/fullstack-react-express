@@ -27,15 +27,13 @@ router.post('/', body, async (req, res) => {
                 })
 
             })
-    }
 
-    if (queryByUsername) {
+    } else if (queryByUsername) {
         return res.status(409).json({
             error: 'Username is already in use.'
         })
-    }
 
-    if (queryByEmail) {
+    } else if (queryByEmail) {
         return res.status(409).json({
             error: 'Email is already in use.'
         })
