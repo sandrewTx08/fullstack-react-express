@@ -9,21 +9,9 @@ router.post('/', body, async (req, res) => {
         username: req.body.username
     }).exec()
 
-    if (queryByUsername) {
-        return res.status(409).json({
-            error: 'Username is already in use.'
-        })
-    }
-
     let queryByEmail = await Login.findOne({
         email: req.body.email
     }).exec()
-
-    if (queryByEmail) {
-        return res.status(409).json({
-            error: 'Email is already in use.'
-        })
-    }
 
     if (!queryByUsername && !queryByEmail) {
         await bcrypt.hash(req.body.password, Number(process.env.HASH_SALT))
@@ -37,7 +25,20 @@ router.post('/', body, async (req, res) => {
                 res.status(201).json({
                     message: `User ${req.body.username} created with success!`
                 })
+
             })
+    }
+
+    if (queryByUsername) {
+        return res.status(409).json({
+            error: 'Username is already in use.'
+        })
+    }
+
+    if (queryByEmail) {
+        return res.status(409).json({
+            error: 'Email is already in use.'
+        })
     }
 })
 
