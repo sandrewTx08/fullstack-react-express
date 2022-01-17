@@ -23,7 +23,7 @@ router.post('/', body, async (req, res) => {
             error: 'Username is already in use.'
         })
 
-    } else if (!req.body.password === !req.body.passwordConfirm) {
+    } else if (req.body.password != req.body.passwordConfirm) {
         return res.status(400).json({
             error: "Can't confirm password."
         })
