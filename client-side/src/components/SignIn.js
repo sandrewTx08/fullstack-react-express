@@ -14,14 +14,15 @@ class SignIn extends Component {
     handleSubmit(event) {
         event.preventDefault()
         this.setState({ loadingQuery: true })
-        let { username, password, email } = this.state
+        let { username, password, email, passwordConfirm } = this.state
         axios({
             url: HOST + '/api/signin',
             method: 'post',
             data: {
                 email,
                 username,
-                password
+                password,
+                passwordConfirm
             },
 
         }).catch(failed => {

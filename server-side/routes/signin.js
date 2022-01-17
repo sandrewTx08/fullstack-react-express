@@ -13,7 +13,22 @@ router.post('/', body, async (req, res) => {
         email: req.body.email
     }).exec()
 
-    if (!queryByUsername && !queryByEmail) {
+    if (queryByEmail) {
+        return res.status(409).json({
+            error: 'Email is already in use.'
+        })
+
+    } else if (queryByUsername) {
+        return res.status(409).json({
+            error: 'Username is already in use.'
+        })
+
+    } else if (!req.body.password === !req.body.passwordConfirm) {
+        return res.status(400).json({
+            error: "Can't confirm password."
+        })
+    
+    } else if (!queryByUsername && !queryByEmail) {
         await bcrypt.hash(req.body.password, Number(process.env.HASH_SALT))
             .then(async hash => {
                 await Login.create({
@@ -27,16 +42,6 @@ router.post('/', body, async (req, res) => {
                 })
 
             })
-
-    } else if (queryByUsername) {
-        return res.status(409).json({
-            error: 'Username is already in use.'
-        })
-
-    } else if (queryByEmail) {
-        return res.status(409).json({
-            error: 'Email is already in use.'
-        })
     }
 })
 
