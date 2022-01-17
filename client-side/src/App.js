@@ -5,7 +5,6 @@ import Cookies from 'universal-cookie'
 import { Component } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import axios from 'axios'
-const HOST = 'http://localhost:3001'
 
 
 class App extends Component {
@@ -19,7 +18,7 @@ class App extends Component {
 
     Verify() {
         axios({
-            url: HOST + '/api/verify',
+            url: '/api/verify',
             method: 'post',
             data: {
                 token: this.state.cookie.get('token')

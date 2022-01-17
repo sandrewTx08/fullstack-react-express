@@ -2,7 +2,6 @@ import axios from 'axios'
 import { Link } from "react-router-dom"
 import { Component } from "react"
 import Form from './Form'
-const HOST = 'http://localhost:3001'
 
 
 class SignUp extends Component {
@@ -16,7 +15,7 @@ class SignUp extends Component {
         this.setState({ loadingQuery: true })
         let { username, password, email, passwordConfirm } = this.state
         axios({
-            url: HOST + '/api/signup',
+            url: '/api/signup',
             method: 'post',
             data: {
                 email,

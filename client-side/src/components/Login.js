@@ -3,7 +3,6 @@ import Form from './Form'
 import { Component } from "react"
 import { Navigate, Link } from "react-router-dom"
 import Cookies from 'universal-cookie'
-const HOST = 'http://localhost:3001'
 
 
 class Login extends Component {
@@ -19,7 +18,7 @@ class Login extends Component {
         this.setState({ loadingQuery: true })
         let { username, password } = this.state
         axios({
-            url: HOST + '/api/login',
+            url: '/api/login',
             method: 'post',
             data: {
                 username,
