@@ -37,6 +37,7 @@ class Login extends Component {
 
         }).then(response => {
             let alertMessage = response.data.message
+            this.state.cookie.set('token', response.data.token)
             this.setState({ alertMessage })
             this.setState({ alertError: false })
             return response

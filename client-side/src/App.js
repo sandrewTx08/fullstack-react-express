@@ -12,8 +12,7 @@ class App extends Component {
     constructor() {
         super()
         this.state = {
-            cookie: new Cookies(),
-            auth: undefined
+            cookie: new Cookies()
         }
         this.Verify()
     }
