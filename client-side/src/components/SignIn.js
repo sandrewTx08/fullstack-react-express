@@ -52,7 +52,9 @@ class SignIn extends Component {
                     {!this.state.loadingQuery
                         ? this.state.alertError
                             ? <div className="alert alert-danger" role="alert">{this.state.alertError}</div>
-                            : undefined
+                            : this.state.alertMessage
+                                ? <div className="alert alert-success" role="alert">{this.state.alertMessage}</div>
+                                : undefined
                         : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
 
                     {/* Email input */}
