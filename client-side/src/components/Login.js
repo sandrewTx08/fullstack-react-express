@@ -15,6 +15,7 @@ class Login extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
+        this.setState({ loadingQuery: true })
         let { username, password } = this.state
         axios({
             url: HOST + '/api/login',
@@ -25,10 +26,14 @@ class Login extends Component {
             },
 
         }).catch(failed => {
+            this.setState({ loadingQuery: false })
+
             let alertError = failed.response.data.error
             this.setState({ alertError })
 
         }).then(response => {
+            this.setState({ loadingQuery: false })
+
             this.state.cookie.set('token', response.data.token, { path: '/' })
             let alertMessage = response.data.message
             this.setState({ alertMessage })
@@ -46,11 +51,14 @@ class Login extends Component {
                         <h2>Login</h2>
                     </div>
                     <div className="p-3">
-                        {this.state.alertError ? <div
-                            className="alert alert-danger"
-                            role="alert">{this.state.alertError}</div>
-                            : undefined}
-
+                        
+                        {/* Loading gif */}
+                        {!this.state.loadingQuery
+                            ? this.state.alertError
+                                ? <div className="alert alert-danger" role="alert">{this.state.alertError}</div>
+                                : undefined
+                            : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
+        
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
                             <input
