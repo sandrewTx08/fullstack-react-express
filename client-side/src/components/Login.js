@@ -47,18 +47,23 @@ class Login extends Component {
         } else {
             return (<form onSubmit={this.handleSubmit.bind(this)}>
                 <div className="border border-secondary rounded border-1 card">
+
+                    {/* Form header */}
                     <div className="text-center card-header">
                         <h2>Login</h2>
                     </div>
+
+                    {/* Form body */}
                     <div className="p-3">
-                        
-                        {/* Loading gif */}
+
+                        {/* Loading gif && Alert box*/}
                         {!this.state.loadingQuery
                             ? this.state.alertError
                                 ? <div className="alert alert-danger" role="alert">{this.state.alertError}</div>
                                 : undefined
                             : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
-        
+
+                        {/* Username input */}
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
                             <input
@@ -70,6 +75,7 @@ class Login extends Component {
                                 aria-describedby="inputGroup-sizing-default"></input>
                         </div>
 
+                        {/* Password input */}
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
                             <input
@@ -81,10 +87,12 @@ class Login extends Component {
                                 aria-describedby="inputGroup-sizing-default"></input>
                         </div>
 
+                        {/* Submit button */}
                         <div className='d-flex justify-content-center'>
                             <button className="btn btn-primary" type='submit'>Login</button>
                         </div>
 
+                        {/* Form footer */}
                         <div className='container pt-4'>
                             {this.props.children}
                         </div>
