@@ -40,20 +40,11 @@ class App extends Component {
             <Navbar />
             <Routes>
                 <Route path='login' element={<div className='d-flex justify-content-center'>
-                    <Login>
-                        <Link to='/signin' className='text-decoration-none'>
-                            Don't have an account yet?
-                        </Link>
-                    </Login>
+                    <Login />
                 </div>}>
                 </Route>
-
                 <Route path='signin' element={<div className='d-flex justify-content-center'>
-                    <SignIn>
-                        <Link to='/login' className='text-decoration-none'>
-                            Already have an account?
-                        </Link>
-                    </SignIn>
+                    <SignIn />
                 </div>}>
                 </Route>
                 <Route path='/' element={<div>

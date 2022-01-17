@@ -1,6 +1,7 @@
 import axios from 'axios'
+import Form from './Form'
 import { Component } from "react"
-import { Navigate } from "react-router-dom"
+import { Navigate, Link } from "react-router-dom"
 import Cookies from 'universal-cookie'
 const HOST = 'http://localhost:3001'
 
@@ -49,61 +50,45 @@ class Login extends Component {
             return <Navigate to='/' />
 
         } else {
-            return (<form onSubmit={this.handleSubmit.bind(this)}>
-                <div className="border border-secondary rounded border-1 card">
-
-                    {/* Form header */}
-                    <div className="text-center card-header">
-                        <h2>Login</h2>
+            return <Form
+                buttonName='Login'
+                headerName='Login'
+                submit={this.handleSubmit.bind(this)}
+                alertBox={!this.state.loadingQuery
+                    ? this.state.alertError
+                        ? <div className="alert alert-danger" role="alert">{this.state.alertError}</div>
+                        : this.state.alertMessage
+                            ? <div className="alert alert-success" role="alert">{this.state.alertMessage}</div>
+                            : undefined
+                    : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
+                footer={<Link to='/signin' className='text-decoration-none'>
+                    Don't have an account yet?
+                </Link>}
+                inputs={<div>
+                    {/* Username input */}
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
+                        <input
+                            onChange={e => this.setState({ username: e.target.value })}
+                            placeholder="Username"
+                            type="text"
+                            className="form-control"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default"></input>
                     </div>
 
-                    {/* Form body */}
-                    <div className="p-3">
-
-                        {/* Loading gif && Alert box*/}
-                        {!this.state.loadingQuery
-                            ? this.state.alertError
-                                ? <div className="alert alert-danger" role="alert">{this.state.alertError}</div>
-                                : undefined
-                            : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
-
-                        {/* Username input */}
-                        <div className="input-group mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
-                            <input
-                                onChange={e => this.setState({ username: e.target.value })}
-                                placeholder="Username"
-                                type="text"
-                                className="form-control"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-default"></input>
-                        </div>
-
-                        {/* Password input */}
-                        <div className="input-group mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
-                            <input
-                                onChange={e => this.setState({ password: e.target.value })}
-                                placeholder="Password"
-                                type="password"
-                                className="form-control"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-default"></input>
-                        </div>
-
-                        {/* Submit button */}
-                        <div className='d-flex justify-content-center'>
-                            <button className="btn btn-primary" type='submit'>Login</button>
-                        </div>
-
-                        {/* Form footer */}
-                        <div className='container pt-4'>
-                            {this.props.children}
-                        </div>
-
+                    {/* Password input */}
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
+                        <input
+                            onChange={e => this.setState({ password: e.target.value })}
+                            placeholder="Password"
+                            type="password"
+                            className="form-control"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default"></input>
                     </div>
-                </div>
-            </form>)
+                </div>} />
         }
     }
 }
