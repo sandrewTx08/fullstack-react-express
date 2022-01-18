@@ -1,6 +1,7 @@
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Navbar from './components/Navbar'
+import Dashboard from './components/Dashboard'
 import Cookies from 'universal-cookie'
 import { Component } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
@@ -46,15 +47,12 @@ class App extends Component {
                     <SignUp />
                 </div>}>
                 </Route>
-                <Route path='/' element={<div>
-                    {this.state.auth === undefined ? <img src={process.env.PUBLIC_URL + "/loading.gif"}></img>
-                        : this.state.auth === false ? <Navigate to="/login" />
-                            : this.state.auth === true ? <h1>Dashboard</h1>
-                                : undefined}
-                </div>}>
+                <Route path='/' element={!this.state.auth
+                    ? <Navigate to="/login" />
+                    : <Dashboard />}>
                 </Route>
             </Routes>
-        </BrowserRouter>)
+        </BrowserRouter >)
     }
 }
 
