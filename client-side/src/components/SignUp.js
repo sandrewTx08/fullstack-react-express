@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Link } from "react-router-dom"
 import { Component } from "react"
 import Form from './Form'
+import Input from './Input'
 
 
 class SignUp extends Component {
@@ -59,52 +60,36 @@ class SignUp extends Component {
             </Link>}
             inputs={<div>
                 {/* Email input */}
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">✉️</span>
-                    <input
-                        onChange={e => this.setState({ email: e.target.value })}
-                        placeholder="Email"
-                        type="email"
-                        className="form-control"
-                        aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default"></input>
-                </div>
+                <Input
+                    onChange={e => this.setState({ email: e.target.value })}
+                    icon='✉️'
+                    placeholder='Email'
+                    type='email'
+                />
 
                 {/* Username input */}
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
-                    <input
-                        onChange={e => this.setState({ username: e.target.value })}
-                        placeholder="Username"
-                        type="text"
-                        className="form-control"
-                        aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default"></input>
-                </div>
+                <Input
+                    onChange={e => this.setState({ username: e.target.value })}
+                    icon='👤'
+                    placeholder='Username'
+                    type='text'
+                />
 
                 {/* Password input */}
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
-                    <input
-                        onChange={e => this.setState({ password: e.target.value })}
-                        placeholder="Password"
-                        type="password"
-                        className="form-control"
-                        aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default"></input>
-                </div>
+                <Input
+                    onChange={e => this.setState({ password: e.target.value })}
+                    icon='🔑'
+                    placeholder='Password'
+                    type='password'
+                />
 
                 {/* Confirm password input */}
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
-                    <input
-                        onChange={e => this.setState({ passwordConfirm: e.target.value })}
-                        placeholder="Confirm password"
-                        type="password"
-                        className="form-control"
-                        aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default"></input>
-                </div>
+                <Input
+                    onChange={e => this.setState({ passwordConfirm: e.target.value })}
+                    icon='🔑'
+                    placeholder='Confirm password'
+                    type='password'
+                />
             </div>} />
     }
 }

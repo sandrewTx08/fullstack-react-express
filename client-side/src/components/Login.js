@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Form from './Form'
+import Input from './Input'
 import { Component } from "react"
 import { Navigate, Link } from "react-router-dom"
 import Cookies from 'universal-cookie'
@@ -65,28 +66,20 @@ class Login extends Component {
                 </Link>}
                 inputs={<div>
                     {/* Username input */}
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="inputGroup-sizing-default">👤</span>
-                        <input
-                            onChange={e => this.setState({ username: e.target.value })}
-                            placeholder="Username"
-                            type="text"
-                            className="form-control"
-                            aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-default"></input>
-                    </div>
+                    <Input
+                        onChange={e => this.setState({ username: e.target.value })}
+                        icon='👤'
+                        placeholder='Username'
+                        type='text'
+                    />
 
                     {/* Password input */}
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="inputGroup-sizing-default">🔑</span>
-                        <input
-                            onChange={e => this.setState({ password: e.target.value })}
-                            placeholder="Password"
-                            type="password"
-                            className="form-control"
-                            aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-default"></input>
-                    </div>
+                    <Input
+                        onChange={e => this.setState({ password: e.target.value })}
+                        icon='🔑'
+                        placeholder='Password'
+                        type='password'
+                    />
                 </div>} />
         }
     }
