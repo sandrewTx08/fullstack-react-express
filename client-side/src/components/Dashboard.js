@@ -64,7 +64,10 @@ class Login extends Component {
 
                     <div className="card-body">
                         <button onClick={this.deleteDocument.bind(this)} type="button" className="btn btn-success">Yes</button>
-                        <button type="button" className="btn btn-danger">No</button>
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => { this.setState({ rowAction: undefined }) }}>No</button>
                     </div>
                 </div>
 
