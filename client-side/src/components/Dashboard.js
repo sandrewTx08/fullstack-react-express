@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Component } from "react"
 
 
-class Login extends Component {
+class Dashboard extends Component {
     constructor() {
         super()
         this.state = {}
@@ -49,31 +49,29 @@ class Login extends Component {
     }
 
     render() {
-        return (<div>
-            {this.state.rowAction ?
+        return (<div className='d-flex pt-3 justify-content-center'>
+            {this.state.rowAction
 
                 // Actions pop-up
-                <div className="card">
-
-                    {/* Ask box */}
+                ? <div className="card w-25">
                     <div className="card-header">
-                        <div className="alert alert-primary" role="alert">
-                            Do you want to delete {this.state.rowAction.username}
-                        </div>
+                        <h3>Are you want delete this account?</h3>
                     </div>
 
+                    {/* Ask box */}
                     <div className="card-body">
-                        {/* Yes button */}
-                        <button
-                            onClick={this.deleteDocument.bind(this)}
-                            type="button"
-                            className="btn btn-success">Yes</button>
+                        <ul class="list-group">
+                            <li class="list-group-item"><b>ID: </b> {this.state.rowAction._id}</li>
+                            <li class="list-group-item"><b>Email: </b>{this.state.rowAction.email}</li>
+                            <li class="list-group-item"><b>Username: </b> {this.state.rowAction.username}</li>
+                        </ul>
+                    </div>
 
-                        {/* No button */}
+                    <div class="card-footer text-muted d-flex justify-content-center">
                         <button
                             type="button"
                             className="btn btn-danger"
-                            onClick={() => { this.setState({ rowAction: undefined }) }}>No</button>
+                            onClick={this.deleteDocument.bind(this)}>Yes, do it now.</button>
                     </div>
                 </div>
 
@@ -97,11 +95,10 @@ class Login extends Component {
                                 <td>{document.username}</td>
                                 <td>
                                     <button
-                                        className="btn btn-secondary dropdown-toggle"
+                                        className="btn btn-outline-danger btn-sm"
                                         type="button"
-                                        id="dropdownMenuButton"
                                         onClick={() => { this.setState({ rowAction: document }) }}>
-                                        Actions
+                                        Delete
                                     </button>
                                 </td>
                             </tr>)
@@ -112,5 +109,5 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default Dashboard
 
