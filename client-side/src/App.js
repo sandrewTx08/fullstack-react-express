@@ -31,7 +31,7 @@ export default () => {
     }
 
     const [loadingQuery, setLoadingQuery] = useState('')
-    const [auth, setAuth] = useState(() => getVerify())
+    const [auth, setAuth] = useState(async () => await getVerify())
 
     return (<BrowserRouter>
         <Navbar />
