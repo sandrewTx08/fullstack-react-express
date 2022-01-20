@@ -3,58 +3,54 @@ import SignUp from './components/SignUp'
 import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
 import Cookies from 'universal-cookie'
-import { Component } from 'react'
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import axios from 'axios'
 
 
-class App extends Component {
-    constructor() {
-        super()
-        this.state = {
-            cookie: new Cookies()
-        }
-        this.Verify()
-    }
-
-    Verify() {
+export default () => {
+    const cookie = new Cookies
+    const getVerify = () => {
         axios({
             url: '/api/verify',
             method: 'post',
             data: {
-                token: this.state.cookie.get('token')
-            },
+                token: cookie.get('token')
+            }
 
         }).catch(failed => {
-            let auth = failed.response.data.pass ? true : false
-            this.setState({ auth })
+            return failed.response
 
         }).then(response => {
-            let auth = response.data.pass ? true : false
-            this.setState({ auth })
+            setLoadingQuery(false)
+            return response.data
+
+        }).then(data => {
+            setAuth(data.pass ? true : false)
         })
     }
 
-    render() {
-        return (<BrowserRouter>
-            <Navbar />
-            <Routes>
-                <Route path='login' element={<div className='d-flex justify-content-center'>
-                    <Login />
-                </div>}>
-                </Route>
-                <Route path='signup' element={<div className='d-flex justify-content-center'>
-                    <SignUp />
-                </div>}>
-                </Route>
-                <Route path='/' element={!this.state.auth
-                    ? <Navigate to="/login" />
-                    : <Dashboard />}>
-                </Route>
-            </Routes>
-        </BrowserRouter >)
-    }
-}
+    const [loadingQuery, setLoadingQuery] = useState('')
+    const [auth, setAuth] = useState(() => getVerify())
 
-export default App
+    return (<BrowserRouter>
+        <Navbar />
+        <Routes>
+            <Route path='/' element={!auth
+                // Redirect
+                ? <Navigate to="/login" />
+                // Pass
+                : <Dashboard />}>
+            </Route>
+            <Route path='login' element={<div className='d-flex justify-content-center'>
+                <Login />
+            </div>}>
+            </Route>
+            <Route path='signup' element={<div className='d-flex justify-content-center'>
+                <SignUp />
+            </div>}>
+            </Route>
+        </Routes>
+    </BrowserRouter>)
+}
 
