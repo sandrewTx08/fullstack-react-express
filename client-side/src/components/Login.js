@@ -1,89 +1,85 @@
 import axios from 'axios'
 import Form from './Form'
 import Input from './Input'
-import { Component } from "react"
+import { useState } from "react"
 import { Navigate, Link } from "react-router-dom"
 import Cookies from 'universal-cookie'
 
 
-class Login extends Component {
-    constructor() {
-        super()
-        this.state = {
-            cookie: new Cookies()
-        }
-    }
+export default () => {
+    const cookie = new Cookies()
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [loadingQuery, setLoadingQuery] = useState('')
+    const [alertError, setAlertError] = useState('')
+    const [alertMessage, setAlertMessage] = useState('')
 
-    handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault()
-        this.setState({ loadingQuery: true })
-        let { username, password } = this.state
+        setLoadingQuery(true)
         axios({
             url: '/api/login',
             method: 'post',
             data: {
                 username,
                 password
-            },
+            }
 
         }).catch(failed => {
-            let alertError = failed.response.data.error
-            this.setState({ alertError })
-            this.setState({ alertMessage: false })
-            return failed
+            return failed.response
 
         }).then(response => {
-            this.setState({ loadingQuery: false })
-            return response
+            setLoadingQuery(false)
+            return response.data
 
-        }).then(response => {
-            let alertMessage = response.data.message
-            this.state.cookie.set('token', response.data.token)
-            this.setState({ alertMessage })
-            this.setState({ alertError: false })
-            return response
+        }).then(data => {
+            if (!data.error) {
+                cookie.set('token', data.token)
+                setAlertError(false)
+                setAlertMessage(data.message)
+
+            } else {
+                setAlertMessage(false)
+                setAlertError(data.error)
+            }
         })
     }
 
-    render() {
-        if (this.state.alertMessage) {
-            return <Navigate to='/' />
+    if (alertMessage) {
+        return <Navigate to='/' />
 
-        } else {
-            return <Form
-                buttonName='Login'
-                headerName='Login'
-                submit={this.handleSubmit.bind(this)}
-                alertBox={!this.state.loadingQuery
-                    ? this.state.alertError
-                        ? <div className="alert alert-danger" role="alert">{this.state.alertError}</div>
-                        : this.state.alertMessage
-                            ? <div className="alert alert-success" role="alert">{this.state.alertMessage}</div>
-                            : undefined
-                    : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
-                footer={<Link to='/signup' className='text-decoration-none'>
-                    Don't have an account yet?
-                </Link>}
-                inputs={<div>
-                    {/* Username input */}
-                    <Input
-                        onChange={e => this.setState({ username: e.target.value })}
-                        icon='👤'
-                        placeholder='Username'
-                        type='text'
-                    />
+    } else {
+        return <Form
+            buttonName='Login'
+            headerName='Login'
+            submit={handleSubmit}
+            alertBox={!loadingQuery
+                ? alertError
+                    ? <div className="alert alert-danger" role="alert">{alertError}</div>
+                    : alertMessage
+                        ? <div className="alert alert-success" role="alert">{alertMessage}</div>
+                        : undefined
+                : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
+            footer={<Link to='/signup' className='text-decoration-none'>
+                Don't have an account yet?
+            </Link>}
+            inputs={<div>
+                {/* Username input */}
+                <Input
+                    onChange={e => setUsername(e.target.value)}
+                    icon='👤'
+                    placeholder='Username'
+                    type='text'
+                />
 
-                    {/* Password input */}
-                    <Input
-                        onChange={e => this.setState({ password: e.target.value })}
-                        icon='🔑'
-                        placeholder='Password'
-                        type='password'
-                    />
-                </div>} />
-        }
+                {/* Password input */}
+                <Input
+                    onChange={e => setPassword(e.target.value)}
+                    icon='🔑'
+                    placeholder='Password'
+                    type='password'
+                />
+            </div>} />
     }
 }
-
-export default Login
 
