@@ -1,3 +1,4 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
 mongoose.connect(process.env.DB_HOST)
@@ -14,7 +15,9 @@ module.exports = {
         username: {
             type: String,
             require: true,
-            unique: true
+            unique: true,
+            minLength: process.env.USERNAME_LENGTH_MIN,
+            maxLength: process.env.USERNAME_LENGTH_MAX
         },
 
         password: {
