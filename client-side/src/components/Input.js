@@ -1,4 +1,4 @@
-export default (props) => {
+const Input = (props) => {
     return (<div className="input-group mb-3">
         <span className="input-group-text" id="inputGroup-sizing-default">{props.icon}</span>
         <input
@@ -10,4 +10,7 @@ export default (props) => {
             aria-describedby="inputGroup-sizing-default"></input>
     </div>)
 }
+
+
+export default Input
 

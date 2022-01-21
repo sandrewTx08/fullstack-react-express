@@ -1,4 +1,4 @@
-export default (props) => {
+const Form = (props) => {
     return (<form onSubmit={props.submit}>
         <div className="border border-secondary rounded border-1 card">
 
@@ -32,4 +32,7 @@ export default (props) => {
         </div>
     </form>)
 }
+
+
+export default Form
 

@@ -5,8 +5,7 @@ import { useState } from "react"
 import { Navigate, Link } from "react-router-dom"
 import Cookies from 'universal-cookie'
 
-
-export default () => {
+const Login = () => {
     const cookie = new Cookies()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -53,13 +52,19 @@ export default () => {
             buttonName='Login'
             headerName='Login'
             submit={handleSubmit}
-            alertBox={!loadingQuery
-                ? alertError
-                    ? <div className="alert alert-danger" role="alert">{alertError}</div>
-                    : alertMessage
-                        ? <div className="alert alert-success" role="alert">{alertMessage}</div>
-                        : undefined
-                : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
+            alertBox={
+                !loadingQuery
+                    // On error
+                    ? (alertError
+                        && <div className="alert alert-danger" role="alert">{alertError}</div>)
+
+                    // Success message
+                    || (alertMessage
+                        && <div className="alert alert-success" role="alert">{alertMessage}</div>)
+
+                    // Loading gif
+                    : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"} alt='Loading...' />
+            }
             footer={<Link to='/signup' className='text-decoration-none'>
                 Don't have an account yet?
             </Link>}
@@ -82,4 +87,7 @@ export default () => {
             </div>} />
     }
 }
+
+
+export default Login
 

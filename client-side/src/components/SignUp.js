@@ -5,7 +5,7 @@ import Form from './Form'
 import Input from './Input'
 
 
-export default () => {
+const SignUp = () => {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -50,13 +50,19 @@ export default () => {
         buttonName='Sign-Up'
         headerName='Sign-Up'
         submit={handleSubmit}
-        alertBox={!loadingQuery
-            ? alertError
-                ? <div className="alert alert-danger" role="alert">{alertError}</div>
-                : alertMessage
-                    ? <div className="alert alert-success" role="alert">{alertMessage}</div>
-                    : undefined
-            : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"}></img>}
+        alertBox={
+            !loadingQuery
+                // On error
+                ? (alertError
+                    && <div className="alert alert-danger" role="alert">{alertError}</div>)
+
+                // Success message
+                || (alertMessage
+                    && <div className="alert alert-success" role="alert">{alertMessage}</div>)
+
+                // Loading gif
+                : <img width={'50px'} src={process.env.PUBLIC_URL + "/loading.gif"} alt='Loading...' />
+        }
         footer={<Link to='/login' className='text-decoration-none'>
             Already have an account?
         </Link>}
@@ -66,32 +72,31 @@ export default () => {
                 onChange={e => setEmail(e.target.value)}
                 icon='✉️'
                 placeholder='Email'
-                type='email'
-            />
+                type='email' />
 
             {/* Username input */}
             <Input
                 onChange={e => setUsername(e.target.value)}
                 icon='👤'
                 placeholder='Username'
-                type='text'
-            />
+                type='text' />
 
             {/* Password input */}
             <Input
                 onChange={e => setPassword(e.target.value)}
                 icon='🔑'
                 placeholder='Password'
-                type='password'
-            />
+                type='password' />
 
             {/* Confirm password input */}
             <Input
                 onChange={e => setPasswordConfirm(e.target.value)}
                 icon='🔑'
                 placeholder='Confirm password'
-                type='password'
-            />
+                type='password' />
+
         </div>} />
 }
 
+
+export default SignUp

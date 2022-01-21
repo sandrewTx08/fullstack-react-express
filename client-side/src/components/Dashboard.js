@@ -1,10 +1,8 @@
 import axios from 'axios'
 import { useState } from "react"
 
-
-export default () => {
+const Dashboard = () => {
     const getDashboard = () => {
-        setLoadingQuery(true)
         axios({
             url: '/api/dashboard',
             method: 'get'
@@ -13,7 +11,6 @@ export default () => {
             return failed.response
 
         }).then(response => {
-            setLoadingQuery(false)
             return response.data
 
         }).then(data => {
@@ -22,13 +19,11 @@ export default () => {
         })
     }
 
-    const [loadingQuery, setLoadingQuery] = useState('')
     const [query, setQuery] = useState(() => getDashboard())
     const [rowAction, setRowAction] = useState('')
 
     const deleteDocument = () => {
         let { _id } = rowAction
-        setLoadingQuery(true)
         axios({
             url: '/api/delete',
             method: 'delete',
@@ -40,7 +35,6 @@ export default () => {
             return failed.response
 
         }).then(response => {
-            setLoadingQuery(false)
             return response.data
 
         }).then(data => {
@@ -51,7 +45,6 @@ export default () => {
 
     return (<div className='d-flex pt-3 justify-content-center' >
         {rowAction
-
             // Delete account pop-up
             ? <div className="card w-25">
                 <div className="card-header">
@@ -74,36 +67,44 @@ export default () => {
                 </div>
             </div>
 
-            // Dashboard table
-            : query && <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {query.map((document, index) => {
-                        return (<tr>
-                            <th scope="row">{index}</th>
-                            <td>{document._id}</td>
-                            <td>{document.email}</td>
-                            <td>{document.username}</td>
-                            <td>
-                                <button
-                                    className="btn btn-outline-danger btn-sm"
-                                    type="button"
-                                    onClick={() => setRowAction(document)}>
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>)
-                    })}
-                </tbody>
-            </table>}
+            // Dashboard
+            : query
+                // Table
+                ? <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {query.map((document, index) => {
+                            return (<tr>
+                                <th scope="row">{index}</th>
+                                <td>{document._id}</td>
+                                <td>{document.email}</td>
+                                <td>{document.username}</td>
+                                <td>
+                                    <button
+                                        className="btn btn-outline-danger btn-sm"
+                                        type="button"
+                                        onClick={() => setRowAction(document)}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>)
+                        })}
+                    </tbody>
+                </table>
+
+                // Loading gif
+                : <img width={'500px'} src={process.env.PUBLIC_URL + "/loading.gif"} alt='Loading...' />}
     </div>)
 }
+
+
+export default Dashboard
 

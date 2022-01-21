@@ -8,8 +8,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import axios from 'axios'
 
 
-export default () => {
-    const cookie = new Cookies
+const App = () => {
+    const cookie = new Cookies()
     const getVerify = () => {
         axios({
             url: '/api/verify',
@@ -22,7 +22,6 @@ export default () => {
             return failed.response
 
         }).then(response => {
-            setLoadingQuery(false)
             return response.data
 
         }).then(data => {
@@ -30,7 +29,6 @@ export default () => {
         })
     }
 
-    const [loadingQuery, setLoadingQuery] = useState('')
     const [auth, setAuth] = useState(async () => await getVerify())
 
     return (<BrowserRouter>
@@ -53,4 +51,7 @@ export default () => {
         </Routes>
     </BrowserRouter>)
 }
+
+
+export default App
 
